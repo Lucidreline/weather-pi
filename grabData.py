@@ -4,7 +4,7 @@ import time
 
 
 def job():
-    currentWeather = req('http://rainbarrel.manuelc.me/api/current').json()
+    currentWeather = req('https://rainbarrel.manuelc.me/api/current').json()
     print(currentWeather)
 
 
