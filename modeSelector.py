@@ -42,6 +42,8 @@ class ModeSelector:
             # if comfortableTemp = 65 & interval = 10, then lightTemps = [45, 55, 65, 75, 85]
 
         print(lightTemps)
+        print(datetime.now())
+        print("")
 
         # light temperatures: 45 55 65 75 85
         # tests cases:
