@@ -12,11 +12,13 @@ on:
 jobs:
   build:
     runs-on: self-hosted
+    
 
     steps:
-      - name: Install Dependencies
-        run: |
-          if [ -f requirements.txt ]; then pip3.8 install -r requirements.txt; fi
-      - name: Restart PM2
-        run: |
-          pm2 restart weather-pi
+
+    - name: Install Dependencies
+      run: |
+        if [ -f requirements.txt ]; then pip3.8 install -r requirements.txt; fi
+    - name: Restart PM2
+      run: |
+        pm2 restart weather-pi
