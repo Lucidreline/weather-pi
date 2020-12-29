@@ -1,7 +1,16 @@
+from time import sleep
+
 from modeSelector import ModeSelector
 
 selector = ModeSelector()  # creates instance of the mode selector class
 
-# calling tranverseModes here for test purposes,
-# usually this will be called by a physical button
-selector.tranverseModes()
+modeButtonPushed = False
+
+while True:
+    sleep(0.1)
+
+    # check if there is button input
+    if modeButtonPushed:
+        selector.tranverseModes()
+    else:
+        selector.continueMode()
