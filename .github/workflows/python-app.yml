@@ -15,10 +15,14 @@ jobs:
     
 
     steps:
+    - name: Pull
+      run: |
+        git pull origin master
 
     - name: Install Dependencies
       run: |
         if [ -f requirements.txt ]; then pip3.8 install -r requirements.txt; fi
+        
     - name: Restart PM2
       run: |
         pm2 restart weather-pi
