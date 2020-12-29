@@ -13,8 +13,13 @@ jobs:
   build:
 
     runs-on: self-hosted
+    
 
     steps:
+    - name: Pull
+      run: |
+          git pull origin master
+      
     - name: Dependancies 
       run: |
         if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
