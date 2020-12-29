@@ -1,4 +1,5 @@
 from requests import get
+from datetime import datetime
 import config
 
 
@@ -6,6 +7,12 @@ class ModeSelector:
     def __init__(self):
         self.mode = 1
         self.numOfModes = 1
+
+        self.modeSelector(self.mode)
+
+    def continueMode(self):
+        if datetime.now().minute == 1:  # prevents me from sending myself too many api calls
+            self.modeSelector(self.mode)
 
     def tranverseModes(self):  # a button on the breadboard will call this
         self.mode += 1
