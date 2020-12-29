@@ -20,4 +20,4 @@ jobs:
         if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
     - name: run command
       run: |
-        mkdir hiThere
+        pm2 restart weather-pi
