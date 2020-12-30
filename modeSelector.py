@@ -1,5 +1,7 @@
 from requests import get
 from datetime import datetime
+
+from lights import Lights
 import config
 
 
@@ -9,6 +11,8 @@ class ModeSelector:
         self.numOfModes = 1
 
         self.keepRefreshing = True
+
+        self.lights = Lights()
 
         self.modeSelector(self.mode)
 
@@ -50,9 +54,8 @@ class ModeSelector:
                               (i * config.lightTemperatureInterval))
             # if comfortableTemp = 65 & interval = 10, then lightTemps = [45, 55, 65, 75, 85]
 
-        print(lightTemps)
-        print(datetime.now())
-        print("")
+        updatedLights = [0, 0, 15, 85, 0]
+        self.lights.updateLights(updatedLights)
 
         # light temperatures: 45 55 65 75 85
         # tests cases:

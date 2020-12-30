@@ -7,7 +7,8 @@ class Lights:
         for light in self.lightBrightnesses:
             light = 0
 
-    def updateLights(self):
-        for light in self.lightBrightnesses:
-            print(light)
-        # write
+    def updateLights(self, updatedLightBrightness):
+        for i in range(len(self.lightBrightnesses)):
+            self.lightBrightnesses[i] = updatedLightBrightness[i]
+        print('Updated Lights: ')
+        print(self.lightBrightnesses)
