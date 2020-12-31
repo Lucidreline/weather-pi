@@ -53,7 +53,7 @@ class ModeSelector:
             lightTemps.append(firstLightBrightness +
                               (i * env.lightTemperatureInterval))
             # if comfortableTemp = 65 & interval = 10, then lightTemps = [45, 55, 65, 75, 85]
-        updatedLights = [0, 0, 0, 0, 0]
+        updatedLights = [1, 1, 1, 1, 1]
 
         if currentTemperature <= lightTemps[0]:
             updatedLights[0] = 100
