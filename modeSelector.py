@@ -2,7 +2,7 @@ from requests import get
 from datetime import datetime
 
 from lights import LightingSystem
-import config
+import env
 
 
 class ModeSelector:
@@ -45,13 +45,13 @@ class ModeSelector:
             'https://rainbarrel.manuelc.me/api/current').json()['temp_F']
 
         # create a list of lights where the middle light is the comfortable temperature and each light has a set interval
-        firstLightBrightness = config.comfortableTemp - \
-            (config.lightTemperatureInterval * 2)
+        firstLightBrightness = env.comfortableTemp - \
+            (env.lightTemperatureInterval * 2)
         lightTemps = []
 
         for i in range(5):
             lightTemps.append(firstLightBrightness +
-                              (i * config.lightTemperatureInterval))
+                              (i * env.lightTemperatureInterval))
             # if comfortableTemp = 65 & interval = 10, then lightTemps = [45, 55, 65, 75, 85]
         updatedLights = [0, 0, 0, 0, 0]
 

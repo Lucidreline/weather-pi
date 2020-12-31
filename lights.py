@@ -1,13 +1,13 @@
-import config
+import env
 
-if config.haveLedLights:
+if env.haveLedLights:
     import RPi.GPIO as GPIO
 
 
 class LightingSystem:
     def __init__(self):
-        self.haveLights = config.haveLedLights
-        self.lightPinNumbers = [22, 27, 17, 18, 4]
+        self.haveLights = env.haveLedLights
+        self.lightPinNumbers = env.lightPinNumbers
         self.lights = []
 
         if self.haveLights:
@@ -44,7 +44,7 @@ class Light:
         self.pinNumber = pinNumber
         self.brightness = startingBrightness
 
-        if config.haveLedLights:
+        if env.haveLedLights:
             self.pwm = GPIO.PWM(pinNumber, 100)
 
         self.updateBrightness(self.brightness)
@@ -52,5 +52,5 @@ class Light:
     def updateBrightness(self, brightness):
         self.brightness = brightness
 
-        if config.haveLedLights:
+        if env.haveLedLights:
             self.pwm.start(self.brightness)
