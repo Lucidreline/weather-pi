@@ -17,11 +17,14 @@ class ModeSelector:
         self.modeSelector(self.mode)
 
     def continueMode(self):
+
+        timeToRefresh = datetime.now().minute % env.updateFreqMins == 0
+
         # prevents me from sending myself too many api calls
-        if datetime.now().minute == 25 and self.keepRefreshing:
+        if timeToRefresh and self.keepRefreshing:
             self.keepRefreshing = False
             self.modeSelector(self.mode)
-        elif datetime.now().minute != 25:
+        elif not timeToRefresh:
             self.keepRefreshing = True
 
     def tranverseModes(self):  # a button on the breadboard will call this
@@ -53,12 +56,13 @@ class ModeSelector:
             lightTemps.append(firstLightBrightness +
                               (i * env.lightTemperatureInterval))
             # if comfortableTemp = 65 & interval = 10, then lightTemps = [45, 55, 65, 75, 85]
-        updatedLights = [1, 1, 1, 1, 1]
+        # every light will be atleast 1% brightness
+        updatedLightBrightnesses = [1, 1, 1, 1, 1]
 
         if currentTemperature <= lightTemps[0]:
-            updatedLights[0] = 100
+            updatedLightBrightnesses[0] = 100
         elif currentTemperature >= lightTemps[len(lightTemps) - 1]:
-            updatedLights[len(updatedLights) - 1] = 100
+            updatedLightBrightnesses[len(updatedLightBrightnesses) - 1] = 100
         else:
             for i in range(1, len(lightTemps)):  # starts index at 1
                 if currentTemperature <= lightTemps[i]:
@@ -79,12 +83,12 @@ class ModeSelector:
                         subtractedCurrentTemperature / subtractedCurrentLightTemp) * 100
                     previousLightBrightness = 100 - currentLightBrightness
 
-                    updatedLights[i] = currentLightBrightness
-                    updatedLights[i - 1] = previousLightBrightness
+                    updatedLightBrightnesses[i] = currentLightBrightness
+                    updatedLightBrightnesses[i - 1] = previousLightBrightness
 
                     break
 
-        self.lights.updateLights(updatedLights)
+        self.lights.updateLights(updatedLightBrightnesses)
 
         # test light temperatures: 45 55 65 75 85
         # tests cases:

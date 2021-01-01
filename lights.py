@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import env
 
 if env.haveLedLights:
@@ -7,13 +9,13 @@ if env.haveLedLights:
 class LightingSystem:
     def __init__(self):
         self.haveLights = env.haveLedLights
-        self.lightPinNumbers = env.lightPinNumbers
+        self.centerLightPins = env.CenterlightPinNumbers
         self.lights = []
 
         if self.haveLights:
             GPIO.setmode(GPIO.BCM)
 
-        for pinNum in self.lightPinNumbers:
+        for pinNum in self.centerLightPins:
             if self.haveLights:
                 GPIO.setup(pinNum, GPIO.OUT)
 
@@ -31,11 +33,14 @@ class LightingSystem:
         self.printLightBrightnesses()
 
     def printLightBrightnesses(self):
-        print('Light Brightnesses')
+        print('Light Brightnesses at: ')
+        print(datetime.now())
+        lights = []
 
         for light in self.lights:
-            print(light.brightness)
+            lights.append(light.brightness)
 
+        print(lights)
         print()
 
 
