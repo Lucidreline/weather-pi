@@ -10,16 +10,25 @@ class LightingSystem:
     def __init__(self):
         self.haveLights = env.haveLedLights
         self.centerLightPins = env.CenterlightPinNumbers
+        self.rightLightPin = env.rightLightPinNumber
         self.lights = []
 
         if self.haveLights:
+            GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
 
+        # sets up the center lights
         for pinNum in self.centerLightPins:
             if self.haveLights:
                 GPIO.setup(pinNum, GPIO.OUT)
 
             self.lights.append(Light(pinNum))
+
+        # sets up the right light
+        if self.haveLights:
+            GPIO.setup(self.rightLightPin, GPIO.OUT)
+
+        self.lights.append(Light(self.rightLightPin))
 
     def turnAllOff(self):
         for light in self.lightBrightnesses:

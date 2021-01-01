@@ -7,8 +7,9 @@ import env
 
 class ModeSelector:
     def __init__(self):
-        self.mode = 1
-        self.numOfModes = 1
+        self.modes = [self.temperatureMode, self.comparedToYesterdayMode]
+        self.mode = 0
+        self.modeLightBrightness = 0
 
         self.keepRefreshing = True
 
@@ -32,14 +33,16 @@ class ModeSelector:
         self.keepRefreshing = True
 
         self.mode += 1
-        if self.mode > self.numOfModes:
-            self.mode = 1
+        if self.mode > len(self.modes):
+            self.mode = 0
 
         self.modeSelector(self.mode)
 
     def modeSelector(self, modeNumber):
-        if modeNumber == 1:
-            self.temperatureMode()
+        self.modes[modeNumber]()
+
+    def getModeLightBrightness(self):
+        return (self.mode + 1) / (len(self.modes))
 
     # displays the temperature using 5 lights and their brightness
     def temperatureMode(self):
@@ -57,7 +60,8 @@ class ModeSelector:
                               (i * env.lightTemperatureInterval))
             # if comfortableTemp = 65 & interval = 10, then lightTemps = [45, 55, 65, 75, 85]
         # every light will be atleast 1% brightness
-        updatedLightBrightnesses = [1, 1, 1, 1, 1]
+        updatedLightBrightnesses = [
+            1, 1, 1, 1, 1, self.getModeLightBrightness()]
 
         if currentTemperature <= lightTemps[0]:
             updatedLightBrightnesses[0] = 100
@@ -95,3 +99,9 @@ class ModeSelector:
         # 65 -> [0 0 100 0 0]  | if the degrees matches a light tempertature exactly, that light will be at 100% brightness
         # 70 -> [0 0 50 50 0]  | if the degrees is in the middle of two lights, the two lights will be at 50%
         # 40 -> [100 0 0 0 0]  | if the degrees out of range, make the closest light to it 100% brightness
+
+    # displays how much colder or hotter it is compared to yesterday
+    def comparedToYesterdayMode(self):
+        print('SinceYest Here!')
+        self.lights.updateLights(
+            100, 10, 60, 20, 40, self.getModeLightBrightness())
