@@ -104,4 +104,4 @@ class ModeSelector:
     def comparedToYesterdayMode(self):
         print('SinceYest Here!')
         self.lights.updateLights(
-            100, 10, 60, 20, 40, self.getModeLightBrightness())
+            [100, 10, 60, 20, 40, self.getModeLightBrightness()])
