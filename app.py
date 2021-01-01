@@ -5,6 +5,8 @@ from modeSelector import ModeSelector
 
 if env.haveLedLights:
     import RPi.GPIO as GPIO
+
+    GPIO.setmode(GPIO.BCM)
     GPIO.setup(env.btnPinNumber, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
