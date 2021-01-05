@@ -33,7 +33,7 @@ class ModeSelector:
         self.keepRefreshing = True
 
         self.mode += 1
-        if self.mode > len(self.modes):
+        if self.mode > len(self.modes) - 1:
             self.mode = 0
 
         self.modeSelector(self.mode)
@@ -42,10 +42,11 @@ class ModeSelector:
         self.modes[modeNumber]()
 
     def getModeLightBrightness(self):
-        return (self.mode + 1) / (len(self.modes))
+        return self.mode / (len(self.modes) - 1)
 
     # displays the temperature using 5 lights and their brightness
     def temperatureMode(self):
+        print('Mode: Current Temperature')
         # grab the current temperature from the best weather api on the world wide web :)
         currentTemperature = get(
             'https://rainbarrel.manuelc.me/api/current').json()['temp_F']
@@ -102,6 +103,6 @@ class ModeSelector:
 
     # displays how much colder or hotter it is compared to yesterday
     def comparedToYesterdayMode(self):
-        print('SinceYest Here!')
+        print('Mode: Compared To Yesterday')
         self.lights.updateLights(
-            [100, 10, 60, 20, 40, self.getModeLightBrightness()])
+            [20, 40, 60, 80, 100, self.getModeLightBrightness()])
